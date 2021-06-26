@@ -13,48 +13,49 @@
 
     <div class="container">
     <!-- putting highscores and the timer in the header -->
-        <header class="view highscores">
+        <header>
         <div class="viewhighscores">
             <button class="highscores">View High Score</button>
-        <div class="timer"> 
-            Time: <span id="time"></span>
-        </div>
+        <div class="timer"> Time: <span id="time"></span></div>
     </header>
 
-      <h1 class="quiz">Timed Coding Quiz</h1>
+ 
        
       <!-- /* explain the name of the game */ -->
-      <div class="infobox">
-          <h2 class="info">Try to answer as many questions correctly in the given time. <br>
-              Keep in mind that incorrect answers will result in a 10 second penalty!</h2>
+      <section id="infobox" class="show">
+        <h1>Timed Coding Quiz</h1>
+          <p>Try to answer as many questions correctly in the given time. <br>
+              Keep in mind that incorrect answers will result in a 10 second penalty!</p>
           <button class="start"> Start Quiz </button>
+        </section>
 
              
-          <section class="questions">
+          <section id="questions" class="hide">
                <!-- qued questions from javaScript -->
+               <h1 id="showquestion"></h1>
+               <div id="answers">
+                   <button class="multiplechoice" id="option1"></button>
+                   <button class="multiplechoice" id="option2"></button>
+                   <button class="multiplechoice" id="option3"></button>
+                   <button class="multiplechoice" id="option4"></button>
+               </div>
           </section>
        
        </div>
        </div>
 
     <!-- //quiz Score -->
-    <div class="score">
-        <h3 class="alldone">
-            All Done!
-            </h3>
-        <h4 class="results">
+    <div id="score" class="hide">
+        <h1> All Done! </h1>
             <!-- //show results with javaScript -->
-        </h4>
-        <h5 class="initials">
-            Enter initials:
-        </h5>
-        <button class="submit">
-            Submit
-        </button>
+        <h2>Your final score is <span id="finalscore"></span></h2>
+        <h3>Enter initials:</h3>
+        <button class="submit"> Submit </button>
+
     </div>
 
-    <div class="highscores">
-        <h6 class="hscores">  High scores </h6>
+    <div id="highscores" class="hide">
+        <h1>  High scores </h1>
             <button class="back">
                 Go Back
             </button>
