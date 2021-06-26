@@ -53,3 +53,6 @@ var clear = document.querySelector(".clear");
                 "4. console.log"],
                 correctAnswer: 3
               }];
+
+              var correctAnswer = [];
+              

@@ -7,29 +7,62 @@
     <title>Coding_Quiz</title>
     <link rel="stylesheet" href="assets/style.css" />
   </head>
+
+
   <body>
-      <div class="container">
-          <button class="highscores">
-              View High Scores
-          </button>
-      </div>
+
     <div class="container">
+    <!-- putting highscores and the timer in the header -->
+        <header class="view highscores">
+        <div class="viewhighscores">
+            <button class="highscores">View High Score</button>
+        <div class="timer"> 
+            Time: <span id="time"></span>
+        </div>
+    </header>
+
       <h1 class="quiz">Timed Coding Quiz</h1>
-      <h2 id="timer"></h2>
-      <p id="main"></p>
-      <button class="start">
-          Start Quiz
-      </button>
+       
+      <!-- /* explain the name of the game */ -->
+      <div class="infobox">
+          <h2 class="info">Try to answer as many questions correctly in the given time. <br>
+              Keep in mind that incorrect answers will result in a 10 second penalty!</h2>
+          <button class="start"> Start Quiz </button>
+
+             
+          <section class="questions">
+               <!-- qued questions from javaScript -->
+          </section>
+       
+       </div>
+       </div>
+
+    <!-- //quiz Score -->
+    <div class="score">
+        <h3 class="alldone">
+            All Done!
+            </h3>
+        <h4 class="results">
+            <!-- //show results with javaScript -->
+        </h4>
+        <h5 class="initials">
+            Enter initials:
+        </h5>
+        <button class="submit">
+            Submit
+        </button>
     </div>
-    <button class="submit">
-        Submit
-    </button>
-    <button class="back">
-        Go Back
-    </button>
-    <button class="clear">
-        Clear High Scores
-    </button>
+
+    <div class="highscores">
+        <h6 class="hscores">  High scores </h6>
+            <button class="back">
+                Go Back
+            </button>
+                <button class="clear">
+                    Clear High Scores
+                         </button>
+        </div>
+
     <script src="assets/script.js"></script>
   </body>
 </html>
