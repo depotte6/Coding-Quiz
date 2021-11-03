@@ -1,11 +1,18 @@
 
 var startBtn = document.querySelector(".start");
-var highscores = document.querySelector(".highscores");
-var submit = document.querySelector("#submit");
-var back = document.querySelector(".back");
-var clear = document.querySelector(".clear");
+var highscoresBtn = document.querySelector("#highscoresBtn");
+var highScoresDisplay = document.querySelector("#highscores");
+var listScores = document.getElementById("highScoresList");
+var submitBtn = document.querySelector("#submit");
+var backBtn = document.querySelector(".back");
+var clearBtn = document.querySelector(".clear");
+var showScore = document.getElementById("score");
+var finalScore = document.getElementById("finalscore");
+var yourFinalScore = document.getElementById("yourFinalScore");
+var input = document.getElementById("initialInput");
 
-var timeEl = document.querySelector(".timer");
+
+var timer = document.getElementById("timer");
 var timeLeft = document.getElementById("timeLeft");
 var timesUp = document.getElementById("timesUp");
 var gameIntro = document.getElementById("infobox");
@@ -15,6 +22,7 @@ var questionsIndex = 0;
 var yourScore = 0;
 var questionsNumber = 0;
 var choiceFeedBack = document.getElementById("choiceFeedBack");
+var choiceList = document.getElementById("choices");
 
 var choice1btn = document.getElementById("option1");
 var choice2btn = document.getElementById("option2");
@@ -77,52 +85,59 @@ var questions = [{
   }
 ];
 
-var answer = [];
+var totalTime = questions.length * 15;
+
+
 
 function takeQuiz() {
     questionsIndex = 0;
-    totalTime = 150;
     timeLeft.textContent = totalTime;
-    questionDisplay.style.display = "block";
+    questionDisplay.removeAttribute("class", "hide");
     timesUp.style.display = "none";
-
     var startTimer = setInterval(function() {
-      totalTime --;
-      timeLeft.textConent = totalTime;
-      if(totalTime ,+ 0) {
-        clearInterval(startTimer);
-        if (questionsIndex < questions.length - 1) {
-          endGame();
-        }
+      totalTime--;
+      timeLeft.textContent = totalTime;
+      if(totalTime <= 0) {
+          clearInterval(startTimer);
+          if (questionIndex < questions.length - 1) {
+            
+            endGame();
+          }
       }
-    }, 1000);
-  askQuestions();
+  },1000);
+    askQuestions();
+
   }
 
   function askQuestions() {
-    gameIntro.style.display = "none";
+    
+    gameIntro.setAttribute("class", "hide");
     console.log(questions[questionsIndex].title);
     console.log(questions[questionsIndex].choices);
     var qTitle = document.getElementById("qTitle");
     var currentQuestion = questions[questionsIndex];
     console.log(currentQuestion);
     
+    choiceList.innerHTML = "";
 
     qTitle.textContent = currentQuestion.title;
-    choice1btn.textContent = currentQuestion.choices[0];
-    choice2btn.textContent = currentQuestion.choices[1];
-    choice3btn.textContent = currentQuestion.choices[2];
-    choice4btn.textContent = currentQuestion.choices[3];
+    currentQuestion.choices.forEach(function(choice, i) {
+      var userChoice = document.createElement("button");
+      userChoice.setAttribute("class", "multiplechoice");
+      userChoice.setAttribute("value", "choice");
+      userChoice.textContent =  choice;
+      choiceList.appendChild(userChoice);
+      
+      userChoice.onclick = choiceClick;
+
+    })
   }
 
   
 
   function choiceClick() {
-    if (!questions[questionsIndex].answer== questions[questionsIndex].choices[answer]) {
-      totalTime -= 15;
-      if (time < 0) {
-        time =0;
-      }
+    if (!this.value== questions[questionsIndex].answer) {
+      totalTime -=15;
       timeLeft.textConent = time;
       choiceFeedBack.textContent = "Wrong answer!";
     } else {
@@ -134,13 +149,79 @@ function takeQuiz() {
     if (questionsIndex < questions.length) {
       askQuestions();
     } else {
+      
       endGame();
     }
   }
 
+  function endGame() {
+    questionDisplay
+    questionDisplay.setAttribute("class", "hide");
+    timer.setAttribute("class", "hide");
+    timesUp.removeAttribute("class", "hide");
+    showScore.removeAttribute("class", "hide");
+    console.log(timeLeft);
+    console.log(timeLeft.innerHTML);
+    var yourFinalScore = timeLeft.innerHTML;
+    finalScore.textContent = yourFinalScore;
+    console.log(yourFinalScore);
+
+  }
+  function storeScores(event) {
+    event.preventDefault();
+    if(input.value == "") {
+      alert("Please enter your initials!");
+      return;
+    }
+    highscores.removeAttribute("class", "hide");
+    var savedScores = localStorage.getItem("high scores");
+    var highScoresArray;
+
+    if(savedScores === null) {
+      highScoresArray = [];
+    } else {
+      highScoresArray = JSON.parse(savedScores);
+    }
+    var savedUserScore = {
+      initials: input.value,
+      score: finalScore.textContent
+    }
+
+    console.log(savedUserScore);
+    highScoresArray.push(savedUserScore);
+    window.localStorage.setItem("high scores", JSON.stringify(highScoresArray));
+    
+    highScoresDisplay.removeAttribute("class", "hide");
+    showScores();
+    
+  }
+
+  function showScores() {
+    showScore.setAttribute("class","hide");
+
+    var savedHighScores = localStorage.getItem("high scores");
+    var storedHighScores = JSON.parse(savedHighScores);
+    console.log(storedHighScores);
+
+    for (let i =0; i < storedHighScores.length; i++) {
+      var eachNewHighScore = document.createElement("p");
+      eachNewHighScore.innerHTML = storedHighScores[i].initials + ": " + storedHighScores[i].score;
+      listScores.appendChild(eachNewHighScore);
+  }
+  }
+
+
+clearBtn.addEventListener("click", function(){
+  window.localStorage.removeItem("high scores");
+  listScores.innerHTML="High scores cleared."
+})
+
+backBtn.addEventListener("click", function() {
+  gameIntro.removeAttribute("class", "hide");
+  highScoresDisplay.setAttribute("class", "hide");
+})
+submitBtn.addEventListener("click", function(event){
+  storeScores(event);
+})
 
 startBtn.addEventListener("click", takeQuiz);
-choice1btn.addEventListener("click", choiceClick);
-choice2btn.addEventListener("click", choiceClick);
-choice3btn.addEventListener("click", choiceClick);
-choice4btn.addEventListener("click", choiceClick);

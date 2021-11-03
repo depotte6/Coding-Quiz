@@ -3,16 +3,15 @@ html {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
-p {
-  font
-}
 
 #viewhighscores {
   float: left;
 }
 
-.timer {
+#timer {
   float: right;
+  font-size: 30px;
+  color:teal;
 }
 
 
@@ -49,13 +48,13 @@ p {
   display: none;
 }
 
-section {
+section  {
   text-align: center;
   align-content: center;
   margin: 100px;
 }
 
-button {
+button, .multiplechoice {
   display: inline-block;
   margin: 10px;
   font-size: 30px;
@@ -63,6 +62,19 @@ button {
   background-color: teal;
 }
 
+div#score {
+
+  text-align: center;
+
+}
+
+.initials {
+  font-size: 25px;
+}
+
+input {
+  size: inherit;
+}
 
 
 .timer{
