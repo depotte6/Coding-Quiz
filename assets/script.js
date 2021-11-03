@@ -12,13 +12,14 @@ var gameIntro = document.getElementById("infobox");
 var questionDisplay = document.getElementById("questions");
 var askQuestion = document.getElementById("showquestions");
 var questionsIndex = 0;
-var correntAnswer = 0;
+var yourScore = 0;
 var questionsNumber = 0;
+var choiceFeedBack = document.getElementById("choiceFeedBack");
 
-var choice1 = document.getElementById("option1");
-var choice2 = document.getElementById("option2");
-var choice3 = document.getElementById("option3");
-var choice4 = document.getElementById("option4");
+var choice1btn = document.getElementById("option1");
+var choice2btn = document.getElementById("option2");
+var choice3btn = document.getElementById("option3");
+var choice4btn = document.getElementById("option4");
 
 
 
@@ -100,23 +101,46 @@ function takeQuiz() {
 
   function askQuestions() {
     gameIntro.style.display = "none";
-    questionDisplay.removeAttribute("class");
     console.log(questions[questionsIndex].title);
     console.log(questions[questionsIndex].choices);
     var qTitle = document.getElementById("qTitle");
     var currentQuestion = questions[questionsIndex];
     console.log(currentQuestion);
+    
 
-    qTitle.textContent = questions[questionsIndex].title;
-    choice1.textContent = questions[questionsIndex].choices[0];
-    choice2.textContent = questions[questionsIndex].choices[1];
-    choice3.textContent = questions[questionsIndex].choices[2];
-    choice4.textContent = questions[questionsIndex].choices[3];
+    qTitle.textContent = currentQuestion.title;
+    choice1btn.textContent = currentQuestion.choices[0];
+    choice2btn.textContent = currentQuestion.choices[1];
+    choice3btn.textContent = currentQuestion.choices[2];
+    choice4btn.textContent = currentQuestion.choices[3];
+  }
+
+  
+
+  function choiceClick() {
+    if (!questions[questionsIndex].answer== questions[questionsIndex].choices[answer]) {
+      totalTime -= 15;
+      if (time < 0) {
+        time =0;
+      }
+      timeLeft.textConent = time;
+      choiceFeedBack.textContent = "Wrong answer!";
+    } else {
+      choiceFeedBack.textContent = "Correct!";
+      yourScore++;
+    }
+    
+    questionsIndex++;
+    if (questionsIndex < questions.length) {
+      askQuestions();
+    } else {
+      endGame();
+    }
   }
 
 
 startBtn.addEventListener("click", takeQuiz);
-choice1.addEventListener("click", choice1);
-choice2.addEventListener("click", choice2);
-choice3.addEventListener("click", choice3);
-choice4.addEventListener("click", choice4);
+choice1btn.addEventListener("click", choiceClick);
+choice2btn.addEventListener("click", choiceClick);
+choice3btn.addEventListener("click", choiceClick);
+choice4btn.addEventListener("click", choiceClick);
