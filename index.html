@@ -16,13 +16,14 @@
         <header>
         <div class="viewhighscores">
             <button class="highscores">View High Score</button>
-        <div class="timer"> Time: <span id="time"></span></div>
+        <div class="timer"> Time: <span id="timeLeft"></span></div>
+        <div id ="timesUp" class="hide">Time is up!</div>
     </header>
 
  
        
       <!-- /* explain the name of the game */ -->
-      <section id="infobox" class="show">
+      <section id="infobox" style= "display: block;">
         <h1>Timed Coding Quiz</h1>
           <p>Try to answer as many questions correctly in the given time. <br>
               Keep in mind that incorrect answers will result in a 10 second penalty!</p>
@@ -32,12 +33,22 @@
              
           <section id="questions" class="hide">
                <!-- qued questions from javaScript -->
-               <h1 id="showquestion"></h1>
+               <h1 id="qTitle" class = "title"></h1>
                <div id="answers">
+                 <ul>
+                   <li>
                    <button class="multiplechoice" id="option1"></button>
-                   <button class="multiplechoice" id="option2"></button>
+                   </li>
+                   <li>
+                     <button class="multiplechoice" id="option2"></button>
+                  </li>
+                  <li>
                    <button class="multiplechoice" id="option3"></button>
+                   </li>
+                   <li>
                    <button class="multiplechoice" id="option4"></button>
+                   </li>
+                  </ul>
                </div>
           </section>
        
@@ -50,7 +61,7 @@
             <!-- //show results with javaScript -->
         <h2>Your final score is <span id="finalscore"></span></h2>
         <h3>Enter initials:</h3>
-        <button class="submit"> Submit </button>
+        <button class="submit" id="submit"> Submit </button>
 
     </div>
 
